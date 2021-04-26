@@ -57,12 +57,13 @@ public class TechJobs {
                 // How does the user want to search (e.g. by skill or employer)
                 String searchField = getUserSelection("Search by:", columnChoices);
 
+                // What is their search term?
+                System.out.println("\nSearch term: ");
+                String searchTerm = in.nextLine();
+
                 if (searchField.equals("all")) {
-                    printJobs(JobData.findAll());
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
-                    // What is their search term?
-                    System.out.println("\nSearch term: ");
-                    String searchTerm = in.nextLine();
 
                     ArrayList<HashMap<String, String>> jobs = JobData.findByColumnAndValue(searchField, searchTerm);
 
