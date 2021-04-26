@@ -70,6 +70,20 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
+        ArrayList<String> values = findAll(column);
+
+        int count = 0;
+
+        for (String each: values){
+            if (each.contains(value)){
+                count++;
+            }
+        }
+
+        if (count == 0){
+            return null;
+        }
+
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {

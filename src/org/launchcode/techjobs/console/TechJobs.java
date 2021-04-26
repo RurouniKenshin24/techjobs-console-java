@@ -2,6 +2,7 @@ package org.launchcode.techjobs.console;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -56,14 +57,20 @@ public class TechJobs {
                 // How does the user want to search (e.g. by skill or employer)
                 String searchField = getUserSelection("Search by:", columnChoices);
 
-                // What is their search term?
-                System.out.println("\nSearch term: ");
-                String searchTerm = in.nextLine();
-
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    printJobs(JobData.findAll());
                 } else {
-                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    // What is their search term?
+                    System.out.println("\nSearch term: ");
+                    String searchTerm = in.nextLine();
+
+                    ArrayList<HashMap<String, String>> jobs = JobData.findByColumnAndValue(searchField, searchTerm);
+
+                    if (jobs == null){
+                        System.out.println("Invalid item!!!" + searchTerm + " is not in " + searchField + " data.");
+                    }else {
+                        printJobs(jobs);
+                    }
                 }
             }
         }
@@ -110,7 +117,12 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-
-        System.out.println("printJobs is not implemented yet");
+        for (HashMap<String,String> job: someJobs){
+            System.out.println("*****");
+            for (Map.Entry<String,String > infoSet: job.entrySet()){
+                System.out.println(infoSet.getKey() + ": " + infoSet.getValue());
+            }
+        }
     }
+
 }
