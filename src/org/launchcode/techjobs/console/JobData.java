@@ -54,6 +54,32 @@ public class JobData {
         return allJobs;
     }
 
+    public static ArrayList<HashMap<String, String>> findByValue(String value){
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = allJobs;
+        ArrayList<HashMap<String, String>> list = new ArrayList<>();
+
+        int count = 0;
+
+        for (HashMap<String, String> job: jobs){
+            for (String each: job.values()){
+                if (each.contains(value)){
+                    count++;
+                    if (!list.contains(job)) {
+                        list.add(job);
+                    }
+                }
+            }
+        }
+
+        if (count == 0){
+            return null;
+        }
+
+        return list;
+    }
+
     /**
      * Returns results of search the jobs data by key/value, using
      * inclusion of the search term.
